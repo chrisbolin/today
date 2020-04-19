@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="https://chris.bolin.co/favicon.ico" />
+    <meta name="description" content="Find out what day it is today!" />
+    <title>What day is today?</title>
+    <style>
+      body {
+        margin: 0;
+        background: #333;
+      }
+
+      #calendar {
+        background: black;
+        color: white;
+        font-family: Helvetica;
+        width: 100vmin;
+        height: 100vmin;
+        margin: auto;
+        text-align: center;
+      }
+
+      #sheet {
+        background: white;
+        color: black;
+        font-weight: bold;
+        padding: 1vmin 0;
+      }
+
+      #today-is {
+        font-size: 10vmin;
+        padding: 3vmin 0;
+      }
+
+      #month {
+        font-size: 20vmin;
+        line-height: 1;
+      }
+
+      #day {
+        font-size: 40vmin;
+        line-height: 0.9;
+        text-shadow: 1.8vmin 1vmin 0 #bbb;
+      }
+
+      #weekday,
+      #year {
+        font-size: 10vmin;
+        line-height: 1.2;
+        text-align: left;
+        padding: 0 3vmin;
+      }
+
+      #year {
+        float: left;
+      }
+
+      #weekday {
+        text-align: right;
+      }
+
+      ::selection {
+        background: yellow;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="calendar" style="display: none;">
+      <div id="today-is">Today Is</div>
+      <div id="sheet">
+        <div id="month">March</div>
+        <div id="day">1</div>
+        <div id="year">2020</div>
+        <div id="weekday">Sun</div>
+      </div>
+    </div>
+    <script>
+      function render() {
+        const now = new Date();
+        const march1Timestamp = 1583020800000;
+        const daysSince =
+          (now.getTime() - march1Timestamp) / (1000 * 60 * 60 * 24) -
+          now.getTimezoneOffset() / (60 * 24);
+        const dayInMarch = Math.floor(1 + daysSince);
+        const weekday = now.toLocaleDateString(undefined, { weekday: "short" });
+
+        document.getElementById("day").innerText = dayInMarch;
+        document.getElementById("weekday").innerText = weekday;
+        document.getElementById("calendar").style = "display: block;";
+      }
+
+      render();
+
+      window.setInterval(render, 10 * 1000);
+    </script>
+  </body>
+</html>
